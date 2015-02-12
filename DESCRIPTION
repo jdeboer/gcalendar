@@ -1,0 +1,19 @@
+Package: gcalendar
+Type: Package
+Title: What the package does (short line)
+Version: 1.0
+Date: 2015-01-18
+Author: Who wrote it
+Maintainer: Who to complain to <yourfault@somewhere.net>
+Description: More about what it does (maybe more than one line)
+License: What license is it under?
+Imports:
+    R6,
+    stringr,
+    httr
+Collate:
+    'GoogleApiCreds.R'
+    'gcalendar-package.R'
+    'google-apis.R'
+    'gCal-classes.R'
+    'tick.R'
