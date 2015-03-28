@@ -41,7 +41,6 @@ gcal_scopes <- c(
           field_list$updated <- ymd_hms(field_list$updated)
         }
         field_list[!(names(field_list) %in% c("kind", "selfLink", "childLink", "parentLink"))]
-        #subset(field_list, select = c(-kind, -selfLink, -childLink, -parentLink))
       } else {
         field_list
       }
@@ -90,7 +89,7 @@ gcal_scopes <- c(
       if (is(private$cache[[class_name]], class_name)) {
         private$cache[[class_name]]
       } else {
-        private$cache[[class_name]] <- class_generator$new(parent = self)
+        private$cache[[class_name]] <- class_generator$new(parent = self, creds = self$creds)
       }
     }
   ),
