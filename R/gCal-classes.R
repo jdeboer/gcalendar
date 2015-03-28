@@ -66,7 +66,7 @@ gcal_scopes <- c(
       self
     },
     initialize = function(creds = GoogleApiCreds(), parent = NULL, id = NULL, ...) {
-      super$initialize(...)
+      super$initialize(creds, ...)
       stopifnot(is(parent, private$parent_class_name) | is(parent, "NULL"))
       self$parent <- parent
       self$id <- id
@@ -130,7 +130,7 @@ gcal_scopes <- c(
       self
     },
     initialize = function(creds = GoogleApiCreds(), parent = NULL, ...) {
-      super$initialize(...)
+      super$initialize(creds, ...)
       entity_class_private <- with(private$entity_class, c(private_fields, private_methods))
       private$request <- entity_class_private$request
       private$parent_class_name <- entity_class_private$parent_class_name
