@@ -40,3 +40,5 @@ birthdays <- birthday_events$summary[c("id", "summary", "start")]
 print(birthdays)
 
 ```
+
+Any feedback, issues you have or other questions specifically about this package should be posted to the [issues page on Github](https://github.com/jdeboer/gcalendar/issues).
