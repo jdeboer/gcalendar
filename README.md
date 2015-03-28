@@ -2,6 +2,8 @@ Google Calendar API client for R.
 
 R6 classes for Google Calendar resources and collections.
 
+This package is in early development (is incomplete and has bugs) but is open for testing.
+
 install the latest version using the devtools package as follows:
 ```r
 install.packages("devtools") # In case you haven't installed devtools already
