@@ -18,7 +18,6 @@ Imports:
     XML,
     stringr
 Collate:
-    'GoogleApiCreds.R'
     'gcalendar-package.R'
     'google-apis.R'
     'gCal-classes.R'

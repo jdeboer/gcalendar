@@ -1,8 +1,8 @@
 #' @importFrom R6 R6Class
 #' @importFrom lubridate now ymd_hms
+#' @importFrom plyr alply l_ply
 #' @include gcalendar-package.R
 #' @include google-apis.R
-#' @include GoogleApiCreds.R
 gcal_scopes <- c(
   read_only = "https://www.googleapis.com/auth/calendar.readonly"
 )
@@ -66,7 +66,7 @@ gcal_scopes <- c(
       })
       self
     },
-    initialize = function(parent = NULL, id = NULL, ...) {
+    initialize = function(creds = GoogleApiCreds(), parent = NULL, id = NULL, ...) {
       super$initialize(...)
       stopifnot(is(parent, private$parent_class_name) | is(parent, "NULL"))
       self$parent <- parent
@@ -99,7 +99,7 @@ gcal_scopes <- c(
       if (is.null(self$id)) {
         NULL
       } else {
-        c(self$parent$.req_path, private$request, self$id)
+        c(self$parent$.req_path, private$request, URLencode(self$id, reserved = TRUE))
       }
     }
   ),
@@ -130,7 +130,7 @@ gcal_scopes <- c(
       }
       self
     },
-    initialize = function(parent = NULL, ...) {
+    initialize = function(creds = GoogleApiCreds(), parent = NULL, ...) {
       super$initialize(...)
       entity_class_private <- with(private$entity_class, c(private_fields, private_methods))
       private$request <- entity_class_private$request

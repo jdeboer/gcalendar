@@ -1,11 +1,45 @@
-#' @importFrom httr oauth_endpoints oauth1.0_token oauth2.0_token config
-#'   stop_for_status content oauth_app modify_url add_headers
-#' @importFrom stringr str_c str_detect
-#' @importFrom plyr aaply 
+#' @importFrom httr oauth_endpoints oauth1.0_token oauth2.0_token config 
+#'   stop_for_status content oauth_app modify_url add_headers GET POST PUT
+#'   DELETE
+#' @importFrom stringr str_c str_detect str_replace_all
+#' @importFrom plyr aaply
 #' @importFrom XML xmlParse xmlToList xmlApply
 #' @importFrom selectr querySelectorAll
-#' @importFrom jsonlite toJSON
+#' @importFrom jsonlite toJSON fromJSON
 #' @include gcalendar-package.R
+#'   
+#' @export
+GoogleApiCreds <- function(
+  userName = character(0),
+  appCreds = NULL,
+  cache = character(0),
+  use_oob = FALSE,
+  appname = "GOOGLE_APIS"
+){
+  cache_generic_file_name <- paste0(tolower(appname), "_auth.RDS")
+  cache_file_prefix <- "."
+  cache_default_dir <- "~"
+  if (length(cache) == 0) {
+    if (length(userName) == 0) {
+      cache <- cache_generic_file_name
+    } else {
+      cache <- paste0(userName, "_", cache_generic_file_name)
+    }
+    cache <- paste0(cache_default_dir, "/", cache_file_prefix, cache)
+  }
+  list(
+    app = app_oauth_creds(
+      appname = appname,
+      creds = appCreds
+    ),
+    user = list(
+      login = userName,
+      cache = cache
+    ),
+    use_oob = use_oob
+  )
+}
+
 google_api_request <- function(creds, scope,
                                request, base_url,
                                queries = NULL, req_type = "GET",
