@@ -1,5 +1,10 @@
-#' @import httr
-#' @import stringr
+#' @importFrom httr oauth_endpoints oauth1.0_token oauth2.0_token config
+#'   stop_for_status content oauth_app modify_url add_headers
+#' @importFrom stringr str_c str_detect
+#' @importFrom plyr aaply 
+#' @importFrom XML xmlParse xmlToList xmlApply
+#' @importFrom selectr querySelectorAll
+#' @importFrom jsonlite toJSON
 #' @include gcalendar-package.R
 google_api_request <- function(creds, scope,
                                request, base_url,

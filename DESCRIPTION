@@ -1,19 +1,24 @@
 Package: gcalendar
 Type: Package
-Title: What the package does (short line)
-Version: 1.0
-Date: 2015-01-18
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Title: Google Calendar API client for R
+Version: 0.1
+Date: 2015-03-28
+Author: johanndeboer@gmail.com
+Maintainer: Johann de Boer <johanndeboer@gmail.com>
+Description: R6 Classes for read-only access to Google Calendar API resources
+    and collections.
+License: MIT
 Imports:
     R6,
-    stringr,
-    httr
+    lubridate,
+    plyr,
+    httr,
+    jsonlite,
+    selectr,
+    XML,
+    stringr
 Collate:
     'GoogleApiCreds.R'
     'gcalendar-package.R'
     'google-apis.R'
     'gCal-classes.R'
-    'tick.R'

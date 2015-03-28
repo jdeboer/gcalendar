@@ -1,4 +1,4 @@
-#' @import R6
+#' @importFrom R6 R6Class
 #' @importFrom lubridate now ymd_hms
 #' @include gcalendar-package.R
 #' @include google-apis.R
