@@ -190,10 +190,13 @@ response_to_list <- function(response) {
 app_oauth_creds <- function(appname, creds = NULL) {
   if (typeof(creds) == "character" & length(creds) == 1) {
     creds <- fromJSON(creds)
+    if("installed" %in% names(creds)) {
+      creds <- creds$installed
+    }
   }
   if (typeof(creds) != "list") {
     if (length(creds) == 2) {
-      if (names(creds) == c("client_id", "client_secret")) {
+      if (all(names(creds) %in% c("client_id", "client_secret"))) {
         creds <- as.list(creds)
       } else {
         creds <- list(client_id = NULL, client_secret = NULL)
