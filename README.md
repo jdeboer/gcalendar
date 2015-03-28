@@ -21,7 +21,7 @@ Once the package is installed in R and you have your Google API Project client I
 library(gcalendar)
 
 # Provide credentials:
-# - Requires a Google APIs project with OAuth access
+# - Requires a Google APIs project with OAuth 2.0 access
 #   and the Google Calendar API enabled.
 creds <- GoogleApiCreds(
   userName = "<set to your Google account email address>", # An optional hint to
