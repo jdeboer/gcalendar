@@ -21,19 +21,24 @@ Once the package is installed in R and you have your Google API Project client I
 library(gcalendar)
 
 # Provide credentials
-# - Requires a Google APIs project with OAuth access and the Google Calendar API enabled
+# - Requires a Google APIs project with OAuth access
+#   and the Google Calendar API enabled
 creds <- GoogleApiCreds(
-  userName = "<set to your Google account email address>", # An optional hint to simplify login.
+  userName = "<set to your Google account email address>", # An optional hint to
+                                                           # simplify login.
   appCreds = "client_secret.json" # Location of the JSON file containing your
-                                  # Google APIs project OAuth client ID and secret.
-                                  # Optionally set to a list with named values for
-                                  # client_id and/or client_secret, and/or provide an appname to fetch
-                                  # omitted values from OS environment variables
-                                  # <appname>_CONSUMER_ID and <appname>_CONSUMER_SECRET.
+                                  # Google APIs project OAuth client ID and
+                                  # secret. Optionally set to a list with named
+                                  # values for client_id and/or client_secret,
+                                  # and/or provide an appname to fetch omitted
+                                  # values from OS environment variables
+                                  # <appname>_CONSUMER_ID and
+                                  # <appname>_CONSUMER_SECRET.
                                   # Default for appname is "GOOGLE_APIS".
 )
 
-# Get a list of your calendars using the credentials you provided and print a summary
+# Get a list of your calendars using the credentials you provided,
+# then print a summary.
 my_cal_list <- gCalendarLists$new(creds = creds)
 calendars <- my_cal_list$summary[c("id", "summary", "description")]
 print(calendars)
