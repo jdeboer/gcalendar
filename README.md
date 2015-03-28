@@ -17,12 +17,12 @@ Once the package is installed in R and you have your Google API Project client I
 
 ##Example use
 ```r
-# Load package into workspace
+# Load package into workspace.
 library(gcalendar)
 
-# Provide credentials
+# Provide credentials:
 # - Requires a Google APIs project with OAuth access
-#   and the Google Calendar API enabled
+#   and the Google Calendar API enabled.
 creds <- GoogleApiCreds(
   userName = "<set to your Google account email address>", # An optional hint to
                                                            # simplify login.
@@ -43,20 +43,20 @@ my_cal_list <- gCalendarLists$new(creds = creds)
 calendars <- my_cal_list$summary[c("id", "summary", "description")]
 print(calendars)
 
-# Get the chosen calendar (contact birthdays)
+# Get the chosen calendar (contact birthdays).
 birthdays_calendar <- gCalendar$new(
   creds = creds,
   id = "#contacts@group.v.calendar.google.com"
 )
 
-# Get the events from this chosen calendar
+# Get the events from this chosen calendar.
 birthday_events <- birthdays_calendar$events
 
-# Get a summary of the birthdays and print the results
+# Get a summary of the birthdays and print the results.
 birthdays <- birthday_events$summary[c("id", "summary", "start")]
 print(birthdays)
 
 ```
 
 ## Support and feedback
-Any feedback, issues you have or other questions specifically about this package should be posted to the [issues page on Github](https://github.com/jdeboer/gcalendar/issues).
+Any feedback, issues you have or other questions specifically about this package should be posted to the [issues page on Github repository site](https://github.com/jdeboer/gcalendar/issues).
