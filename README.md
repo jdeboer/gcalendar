@@ -1,6 +1,7 @@
 #Google Calendar API client for R
 R6 classes for Google Calendar resources and collections.
 
+##Before you start
 This package is in early development (incomplete and has bugs) but is open for alpha testing. Refer to the MIT-licence file before downloading, installing or using.
 
 ##Installation
@@ -42,4 +43,5 @@ print(birthdays)
 
 ```
 
+## Support and feedback
 Any feedback, issues you have or other questions specifically about this package should be posted to the [issues page on Github](https://github.com/jdeboer/gcalendar/issues).
