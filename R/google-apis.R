@@ -5,7 +5,7 @@
 #' @importFrom plyr aaply
 #' @importFrom XML xmlParse xmlToList xmlApply
 #' @importFrom selectr querySelectorAll
-#' @importFrom jsonlite toJSON fromJSON
+#' @importFrom jsonlite toJSON fromJSON validate
 #' @include gcalendar-package.R
 #'   
 #' @export
@@ -149,7 +149,6 @@ form_url <- function(base_url, queries = NULL) {
         paste(
           aaply(seq_along(queries), 1, function(query_index){
             query <- queries[query_index]
-            query <- str_replace_all(query, "\\+", "%2B")
             paste(names(queries)[query_index], URLencode(as.character(query), reserved = TRUE), sep = "=")
           }),
           collapse = "&"
@@ -189,8 +188,14 @@ response_to_list <- function(response) {
 
 app_oauth_creds <- function(appname, creds = NULL) {
   if (typeof(creds) == "character" & length(creds) == 1) {
-    creds <- fromJSON(creds)
-    if("installed" %in% names(creds)) {
+	if(validate(creds)) {
+      creds <- fromJSON(creds)
+    } else if (file.exists(creds)) {
+      creds <- fromJSON(creds)
+    } else {
+      creds <- NULL
+    }
+	if("installed" %in% names(creds)) {
       creds <- creds$installed
     }
   }
