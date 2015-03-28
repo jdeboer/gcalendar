@@ -66,7 +66,7 @@ gcal_scopes <- c(
       self
     },
     initialize = function(creds = GoogleApiCreds(), parent = NULL, id = NULL, ...) {
-      super$initialize(...)
+      super$initialize(creds, ...)
       stopifnot(is(parent, private$parent_class_name) | is(parent, "NULL"))
       self$parent <- parent
       self$id <- id
@@ -114,7 +114,7 @@ gcal_scopes <- c(
     summary = data.frame(),
     parent = NULL,
     get_entity = function(id) {
-      entity <- private$entity_class$new(parent = self$parent, id = id)
+      entity <- private$entity_class$new(parent = self$parent, id = id, creds = self$creds)
       private$entities_cache[[id]] <- entity
       entity
     },
@@ -130,7 +130,7 @@ gcal_scopes <- c(
       self
     },
     initialize = function(creds = GoogleApiCreds(), parent = NULL, ...) {
-      super$initialize(...)
+      super$initialize(creds, ...)
       entity_class_private <- with(private$entity_class, c(private_fields, private_methods))
       private$request <- entity_class_private$request
       private$parent_class_name <- entity_class_private$parent_class_name
@@ -151,7 +151,7 @@ gcal_scopes <- c(
             !is(entity, private$entity_class$classname) |
               identical(entity$updated != updated, TRUE)
           ) {
-            entity <- private$entity_class$new(parent = self$parent)
+            entity <- private$entity_class$new(parent = self$parent, creds = self$creds)
             entity$modify(field_list = field_list)
             private$entities_cache[[id]] <- entity
           }
