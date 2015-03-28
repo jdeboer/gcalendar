@@ -22,8 +22,8 @@ creds <- GoogleApiCreds(
 )
 
 # Get a list of your calendars using the creds you provided and print a summary
-my_cal_lists <- gCalendarLists$new(creds = creds)
-calendars <- my_cal_lists$summary[c("id", "summary", "description")]
+my_cal_list <- gCalendarLists$new(creds = creds)
+calendars <- my_cal_list$summary[c("id", "summary", "description")]
 print(calendars)
 
 # Get the chosen calendar (contact birthdays)
