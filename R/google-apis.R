@@ -195,15 +195,12 @@ app_oauth_creds <- function(appname, creds = NULL) {
     }
   }
   if (typeof(creds) != "list") {
-    if (length(creds) == 2) {
-      if (all(names(creds) %in% c("client_id", "client_secret"))) {
+    if (length(creds) == 2 &
+          identical(all(names(creds) %in% c("client_id", "client_secret")), TRUE)) {
         creds <- as.list(creds)
       } else {
         creds <- list(client_id = NULL, client_secret = NULL)
       }
-    } else {
-      creds <- list(client_id = NULL, client_secret = NULL)
-    }
   }
   if (is.null(creds$client_id)) {
     creds$client_id <- Sys.getenv(str_c(toupper(appname), "_CONSUMER_ID"))
