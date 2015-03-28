@@ -12,12 +12,13 @@ library(gcalendar)
 creds <- GoogleApiCreds(
   userName = "<set to your Google account email address>",
   appCreds = "client_secret.json" # location of the JSON file containing your
-                                  # Google APIs project Oauth client id and secret.
+                                  # Google APIs project OAuth client id and secret.
 )
 
-# Get a list of your calendars using the creds you provided
+# Get a list of your calendars using the creds you provided and print a summary
 my_cal_lists <- gCalendarLists$new(creds = creds)
-my_cal_lists$summary[c("id", "summary", "description")]
+calendars <- my_cal_lists$summary[c("id", "summary", "description")]
+print(calendars)
 
 # Get the chosen calendar (contact birthdays)
 birthdays_calendar <- gCalendar$new(
