@@ -1,5 +1,6 @@
-Google Calendar API client for R
-R6 classes for Google Calendar resources and collections
+Google Calendar API client for R.
+
+R6 classes for Google Calendar resources and collections.
 
 Example use:
 
