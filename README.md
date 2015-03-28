@@ -30,10 +30,10 @@ creds <- GoogleApiCreds(
                                   # Google APIs project OAuth client ID and
                                   # secret. Optionally set to a list with named
                                   # values for client_id and/or client_secret,
-                                  # and/or provide an appname to fetch omitted
-                                  # values from OS environment variables
-                                  # <appname>_CONSUMER_ID and
-                                  # <appname>_CONSUMER_SECRET.
+                                  # and/or provide an appname (separate
+                                  # argument) to fetch omitted values from OS
+                                  # environment variables <appname>_CONSUMER_ID
+                                  # and <appname>_CONSUMER_SECRET.
                                   # Default for appname is "GOOGLE_APIS".
 )
 
