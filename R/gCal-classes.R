@@ -157,18 +157,18 @@ gcal_scopes <- c(
         })
         attributes(ret) <- NULL
         names(ret) <- self$summary$id
-        return(ret)
+        ret
       } else {
-        return(NULL)
+        NULL
       }
     },
     .req_path = function() {
       if (!is.null(self$parent) & is.null(self$parent$.req_path)) {
-        return(NULL)
+        NULL
       } else if (is(self$parent, private$parent_class_name)) {
-        return(c(self$parent$.req_path, private$request))
+        c(self$parent$.req_path, private$request)
       } else {
-        return(NULL)
+        NULL
       }
     }
   ),
