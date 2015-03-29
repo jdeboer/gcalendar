@@ -68,11 +68,10 @@ gcal_scopes <- c(
       stopifnot(is(parent, private$parent_class_name) | is(parent, "NULL"))
       self$parent <- parent
       self$id <- id
-      if(is.na(id)) {
-        self
-      } else {
+      if(!is.na(id)) {
         self$get()
       }
+      self
     },
     get = function() {
       if (!is.null(self$.req_path)) {
@@ -112,6 +111,7 @@ gcal_scopes <- c(
     summary = data.frame(),
     parent = NULL,
     get_entity = function(id) {
+      stopifnot(id %in% self$summary$id)
       entity <- private$entity_class$new(parent = self$parent, id = id, creds = self$creds)
       private$entities_cache[[id]] <- entity
       entity
@@ -142,8 +142,8 @@ gcal_scopes <- c(
       if (is.data.frame(self$summary)) {
         ret <- alply(self$summary, 1, function(summary_row) {
           field_list <- as.list(summary_row)
-          id <- summary_row$id
           updated <- summary_row$updated
+          id <- field_list$id
           entity <- private$entities_cache[[id]]
           if (
             !is(entity, private$entity_class$classname) |
