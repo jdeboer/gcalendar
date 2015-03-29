@@ -40,10 +40,8 @@ gcal_scopes <- c(
         if(exists("updated", field_list)) {
           field_list$updated <- ymd_hms(field_list$updated)
         }
-        field_list[!(names(field_list) %in% c("kind", "selfLink", "childLink", "parentLink"))]
-      } else {
-        field_list
       }
+	  field_list[!(names(field_list) %in% c("kind", "selfLink", "childLink", "parentLink"))]
     }
   )
 )
@@ -65,12 +63,12 @@ gcal_scopes <- c(
       })
       self
     },
-    initialize = function(creds = GoogleApiCreds(), parent = NULL, id = NULL, ...) {
-      super$initialize(creds, ...)
+    initialize = function(creds = GoogleApiCreds(), parent = NULL, id = NA) {
+      super$initialize(creds)
       stopifnot(is(parent, private$parent_class_name) | is(parent, "NULL"))
       self$parent <- parent
       self$id <- id
-      if(is.null(id)) {
+      if(is.na(id)) {
         self
       } else {
         self$get()
@@ -95,7 +93,7 @@ gcal_scopes <- c(
   ),
   active = list(
     .req_path = function() {
-      if (is.null(self$id)) {
+      if (is.na(self$id)) {
         NULL
       } else {
         c(self$parent$.req_path, private$request, URLencode(self$id, reserved = TRUE))
@@ -129,12 +127,12 @@ gcal_scopes <- c(
       }
       self
     },
-    initialize = function(creds = GoogleApiCreds(), parent = NULL, ...) {
-      super$initialize(creds, ...)
+    initialize = function(creds = GoogleApiCreds(), parent = NULL) {
+      super$initialize(creds = creds)
       entity_class_private <- with(private$entity_class, c(private_fields, private_methods))
       private$request <- entity_class_private$request
       private$parent_class_name <- entity_class_private$parent_class_name
-      stopifnot(is(parent, private$parent_class_name) | is(parent, "NULL"))
+      stopifnot(is(parent, private$parent_class_name) | is.null(parent))
       self$parent <- parent
       self$get()
     }
@@ -149,7 +147,7 @@ gcal_scopes <- c(
           entity <- private$entities_cache[[id]]
           if (
             !is(entity, private$entity_class$classname) |
-              identical(entity$updated != updated, TRUE)
+              identical(entity$updated == updated, FALSE)
           ) {
             entity <- private$entity_class$new(parent = self$parent, creds = self$creds)
             entity$modify(field_list = field_list)
