@@ -14,28 +14,21 @@ gcal_scopes <- c(
   private = list(
     scope = gcal_scopes['read_only'],
     write_scope = gcal_scopes["edit"],
-    base_url = "https://www.googleapis.com/calendar/v3"
+    base_url = "https://www.googleapis.com/calendar/v3",
+    api_req_func = google_api_request
   )
 )
 
 .gCalResource <- R6Class(
   ".gCalResource",
   inherit = .googleApiResource,
-  private = list(
-    scope = gcal_scopes['read_only'],
-    write_scope = gcal_scopes["edit"],
-    base_url = "https://www.googleapis.com/calendar/v3"
-  )
+  private = get_privates(.gCalendarApi)
 )
 
 .gCalCollection <- R6Class(
   ".gCalCollection",
   inherit = .googleApiCollection,
-  private = list(
-    scope = gcal_scopes['read_only'],
-    write_scope = gcal_scopes["edit"],
-    base_url = "https://www.googleapis.com/calendar/v3"
-  )
+  private = get_privates(.gCalendarApi)
 )
 
 #' @export

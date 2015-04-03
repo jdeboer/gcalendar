@@ -6,8 +6,8 @@
 #' @importFrom XML xmlParse xmlToList xmlApply
 #' @importFrom selectr querySelectorAll
 #' @importFrom jsonlite toJSON fromJSON validate
-#' @include gcalendar-package.R
-#'   
+NULL
+
 #' @export
 GoogleApiCreds <- function(
   userName = character(0),
@@ -274,13 +274,17 @@ parse_field_list <- function(field_list) {
   return(parsed_fields)
 }
 
+get_privates <- function(class_gen){
+  with(class_gen, c(private_fields, private_methods))
+}
+
 .googleApi <- R6Class(
   ".googleApi",
   public = list(
     creds = GoogleApiCreds(),
     get = function(max_results = NULL) {
       req_type <- "GET"
-      google_api_request(
+      private$api_req_func(
         creds = self$creds,
         request = self$.req_path,
         scope = private$scope,
@@ -302,6 +306,7 @@ parse_field_list <- function(field_list) {
     parent_class_name = "NULL",
     resource_name = NULL,
     base_url = NULL,
+    api_req_func = google_api_request,
     field_corrections = function(field_list) {
       if(is.data.frame(field_list)) {
         if(exists("created", field_list)) {
@@ -353,7 +358,7 @@ parse_field_list <- function(field_list) {
     },
     UPDATE = function(scope = private$write_scope) {
       entity_body_list <- self$api_list
-      google_api_request(
+      private$api_req_func(
         creds = self$creds,
         request = self$.req_path,
         scope = scope,
@@ -414,7 +419,7 @@ parse_field_list <- function(field_list) {
     INSERT = function(entity, scope = private$write_scope) {
       stopifnot(is(entity, private$entity_class$classname))
       entity_body_list <- entity$api_list
-      google_api_request(
+      private$api_req_func(
         creds = self$creds,
         request = self$.req_path,
         scope = scope,
@@ -426,7 +431,7 @@ parse_field_list <- function(field_list) {
     },
     DELETE = function(id, scope = private$write_scope) {
       entity <- self$get_entity(id)
-      google_api_request(
+      private$api_req_func(
         creds = entity$creds,
         request = entity$.req_path,
         scope = scope,
@@ -437,7 +442,7 @@ parse_field_list <- function(field_list) {
     },
     initialize = function(creds = GoogleApiCreds(), parent = NULL) {
       super$initialize(creds = creds)
-      entity_class_private <- with(private$entity_class, c(private_fields, private_methods))
+      entity_class_private <- get_privates(private$entity_class)
       private$request <- entity_class_private$request
       private$parent_class_name <- entity_class_private$parent_class_name
       stopifnot(is(parent, private$parent_class_name) | is.null(parent))
