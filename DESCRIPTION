@@ -18,6 +18,7 @@ Imports:
     XML,
     stringr
 Collate:
+    'flatDataFrame.R'
     'google-apis.R'
     'gcalendar-package.R'
     'gCal-classes.R'
