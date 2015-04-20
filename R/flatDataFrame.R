@@ -14,7 +14,7 @@ flatDataframe <-function(x){
     for (i in names(x)) {
       if (inherits(x[,i],"data.frame")) {
         for(j in names(x[,i])) {
-          newdf[,paste(i,j,sep="_")]<-x[,i][,j]
+          newdf[,paste(i,j,sep=".")]<-x[,i][,j]
         }
       } 
       else { 
