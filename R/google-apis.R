@@ -413,6 +413,21 @@ get_privates <- function(class_gen){
       if (!is.null(self$.req_path)) {
         response <- super$get()
         self$summary <- private$field_corrections(response[[private$collection_name]])
+        while(any(sapply(self$summary,is.data.frame))){
+          newdf<-data.frame(matrix(vector(),nrow(self$summary),0))
+          newnames<-vector()
+          for (i in names(self$summary)) {
+            if (inherits(self$summary[,i],"data.frame")) {
+              for(j in names(self$summary[,i])) {
+                newdf[,paste(i,j,sep="_")]<-self$summary[,i][,j]
+              }
+            } 
+            else { 
+              newdf[,i]<-self$summary[,i]
+            }
+          }
+          self$summary<-newdf
+        }
       }
       self
     },
